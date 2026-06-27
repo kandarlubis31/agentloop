@@ -4,6 +4,13 @@
 #  Usage: ./start-worker2.sh
 # ============================================
 
+# Prerequisite check
+command -v freebuff >/dev/null 2>&1 || command -v codebuff >/dev/null 2>&1 || {
+    echo "[ERROR] freebuff not found in PATH!"
+    echo "        Install: npm install -g freebuff"
+    exit 1
+}
+
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 PARENT_DIR="$(dirname "$PROJECT_ROOT")"
 PROJECT_NAME="$(basename "$PROJECT_ROOT")"

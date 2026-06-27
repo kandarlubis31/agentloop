@@ -24,17 +24,17 @@ for %%I in ("%PROJECT_ROOT%") do set "PARENT_DIR=%%~dpI"
 for %%I in ("%PROJECT_ROOT%") do set "PROJECT_NAME=%%~nI"
 set "WORKTREE_DIR=%PARENT_DIR%%PROJECT_NAME%-w1"
 
-REM HOME + USERPROFILE override = bypass takeover!
-REM Node.js os.homedir() reads USERPROFILE on Windows (not HOME)
+REM Override config path = bypass takeover!
+REM Node.js os.homedir() reads USERPROFILE on Windows
+set "USERPROFILE=%USERPROFILE%\.config\manicode-w1"
 set "HOME=%USERPROFILE%\.config\manicode-w1"
-set "OVERRIDE_USERPROFILE=%USERPROFILE%\.config\manicode-w1"
 
 echo =============================================
 echo   Freebuff Looping - WORKER 1
 echo =============================================
 echo.
 echo Project:  %WORKTREE_DIR%
-echo Config:   %OVERRIDE_USERPROFILE%
+echo Config:   %USERPROFILE%
 echo Mode:     Worker 1 (task execution)
 echo.
 echo =============================================
@@ -55,10 +55,6 @@ if not exist "%WORKTREE_DIR%" (
 )
 
 cd /d "%WORKTREE_DIR%"
-
-REM Run freebuff with overridden config paths
-REM Node.js reads USERPROFILE for os.homedir() on Windows
-set "USERPROFILE=%OVERRIDE_USERPROFILE%"
 freebuff
 
 endlocal

@@ -28,7 +28,7 @@ Pecah task besar jadi sub-tasks **independen** (gak saling tunggu). Maks 5. Tuli
 
 **KRITIKAL:**
 - Prompt di task JSON harus SANGAT DETAIL. Worker gak tanya balik!
-- **JANGAN assign 2 task yang sentuh FILE YANG SAMA.** Kalo worker-1 bikin `auth.ts`, worker-2 jangan edit `auth.ts` juga → merge conflict!
+- **JANGAN assign 2 task yang sentuh FILE YANG SAMA.** Sebelum assign, bandingkan `output_files` array tiap task. Kalo worker-1 bikin `auth.ts`, worker-2 jangan edit `auth.ts` juga → merge conflict! Gunakan file berbeda untuk tiap worker.
 
 ## 3. MONITOR RESULTS
 Setelah tasks ditulis, kerjaan lo SELESAI. Bilang ke user:

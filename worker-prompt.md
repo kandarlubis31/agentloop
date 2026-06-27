@@ -24,16 +24,11 @@ Lo adalah **Worker** dalam sistem looping Freebuff. Tugas lo:
 Cek folder `queue/`. Cari file `.json` dengan `"status": "pending"` yang belum ada result-nya di `results/`.
 
 ## 2. AMBIL 1 TASK (ATOMIC — biar gak tabrakan!)
-**KRITIKAL**: Lo harus **PINDAHIN** (move/rename) file task dari `queue/` ke `in-progress/` SEBELUM baca isinya. Ini atomic operation — kalau 2 worker mau ambil task yang sama, cuma 1 yang berhasil.
+**KRITIKAL**: Lo harus **PINDAHIN** (rename/move) file task dari `queue/` ke `in-progress/` SEBELUM baca isinya. Gunakan file-rename tool lo (bukan baca dulu baru tulis — itu bukan atomic).
 
-```bash
-# Pindahin dulu (atomic!)
-mv queue/task-001.json in-progress/task-001.json
+Cara: rename `queue/<task-file>.json` → `in-progress/<task-file>.json`. Kalau rename gagal (file udah diambil worker lain) → lo ambil task LAIN.
 
-# Kalau mv gagal (file udah diambil worker lain) → lo ambil task LAIN
-```
-
-Setelah berhasil pindahin, baru baca isinya. Update `"status"` jadi `"in-progress"`, `"assigned_to"` jadi `"worker-1"` (atau worker-2).
+Setelah berhasil rename, baru baca isinya. Update `"status"` jadi `"in-progress"`, `"assigned_to"` jadi `"worker-1"` (atau worker-2).
 
 ## 3. EKSEKUSI
 Baca `"prompt"` di task JSON. Eksekusi sesuai instruksi.
