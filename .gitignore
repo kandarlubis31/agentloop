@@ -1,0 +1,17 @@
+# Freebuff Looping - runtime files (jangan commit)
+queue/*.json
+in-progress/*.json
+results/*.json
+
+# Keep folder structure
+!queue/.gitkeep
+!in-progress/.gitkeep
+!results/.gitkeep
+
+# Test output
+test-loop.txt
+test-takeover-result.txt
+
+# OS
+Thumbs.db
+.DS_Store
