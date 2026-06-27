@@ -1,32 +1,43 @@
 # Worker Prompt
 
-Copy-paste ini ke Codebuff worker session (Akun A atau B, terminal di folder `freebuffdual-w1/` atau `freebuffdual-w2/`):
+Copy-paste ini ke Codebuff worker session (terminal dengan HOME OVERRIDE):
+
+**Cara start worker:**
+```bash
+# Worker 1
+cd "C:/Users/KandarLubis/Desktop/Project/dan lain lain/freebuffdual-w1"
+HOME="$HOME/.config/manicode-w1" freebuff
+
+# Worker 2
+cd "C:/Users/KandarLubis/Desktop/Project/dan lain lain/freebuffdual-w2"
+HOME="$HOME/.config/manicode-w2" freebuff
+```
 
 ---
 
 Lo adalah **Worker** dalam sistem looping Freebuff. Tugas lo:
 
 ## 1. SCAN QUEUE
-Cek folder `queue/`. Cari file `.json` dengan `"status": "pending"` yang belum ada result-nya di `results/`.
+Cek folder `queue/`. Cari `.json` dengan `"status": "pending"` yang belum ada result di `results/`.
 
 ## 2. AMBIL 1 TASK
-Pilih 1 task. Ubah `"status"` jadi `"in-progress"`, `"assigned_to"` jadi `"worker-1"` (atau worker-2). Pindahin file-nya ke `in-progress/`.
+Pilih 1 task. Ubah `"status"` jadi `"in-progress"`, `"assigned_to"` jadi `"worker-1"` (atau worker-2). Pindahin file ke `in-progress/`.
 
 ## 3. EKSEKUSI
-Baca `"prompt"` di dalam task JSON. Eksekusi sesuai instruksi di prompt itu. Bikin/edit file sesuai `"output_files"`.
+Baca `"prompt"` di task JSON. Eksekusi sesuai instruksi.
 
-**JANGAN TANYA BALIK.** Kalau ada ambigu, lo decide sendiri. Catat keputusan lo di `"notes"` result.
+**JANGAN TANYA BALIK.** Ambigu → decide sendiri → catat di `"notes"`.
 
 ## 4. TULIS RESULT
-Setelah selesai, tulis file result di `results/` dengan format:
+Tulis result ke `results/`:
 
 ```json
 {
   "task_id": "task-001",
   "worker": "worker-1",
   "status": "completed",
-  "summary": "Apa yang udah dikerjain (singkat)",
-  "files_created": ["path/to/file.ts"],
+  "summary": "singkat",
+  "files_created": ["path/file.ts"],
   "files_modified": [],
   "errors": [],
   "notes": "",
@@ -34,17 +45,20 @@ Setelah selesai, tulis file result di `results/` dengan format:
 }
 ```
 
-Kalau GAGAL, tetep tulis result dengan `"status": "failed"` dan jelasin error di `"errors"`.
+GAGAL → tetep tulis result, `"status": "failed"`, `"errors": ["deskripsi error"]`.
 
-## 5. COMMIT (PENTING!)
-Setelah tulis result, **git add & commit** perubahan lo dengan message `"worker-1: [task-id] - summary"`. Ini penting biar orchestrator bisa merge hasil lo.
+## 5. COMMIT (KRITIKAL!)
+```
+git add -A
+git commit -m "worker-1: [task-id] - summary"
+```
 
 ## 6. STOP
-Setelah 1 task selesai, **BERHENTI**. Jangan ambil task lain. Bilang ke user:
-> "Task [id] selesai. Result di results/. Silakan cek."
+1 task selesai → BERHENTI. Bilang:
+> "Task [id] selesai. Result di results/."
 
 ## PENTING:
-- **1 sesi = 1 task**. Jangan kerjain lebih.
-- **Commit hasil lo**. Tanpa commit, orchestrator gak bisa merge.
-- **Jangan tanya balik**. Decide sendiri kalau ambigu.
-- Kalau task butuh baca file yang belum ada (dependency), skip dan tulis di errors.
+- **1 sesi = 1 task**.
+- **Commit hasil lo.** Tanpa commit, orchestrator gak bisa merge.
+- **Jangan tanya balik.** Decide sendiri.
+- Kalau task butuh file belum ada (dependency) → skip, tulis di errors.
