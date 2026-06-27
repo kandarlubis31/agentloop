@@ -1,6 +1,6 @@
 @echo off
 REM ============================================
-REM  Freebuff Looping - Orchestrator Launcher
+REM  AgentLoop - Orchestrator Launcher
 REM  Double-click to start orchestrator session
 REM ============================================
 
@@ -20,7 +20,7 @@ set "PROJECT_ROOT=%~dp0"
 set "PROJECT_ROOT=%PROJECT_ROOT:~0,-1%"
 
 echo =============================================
-echo   Freebuff Looping - ORCHESTRATOR
+echo   AgentLoop - ORCHESTRATOR
 echo =============================================
 echo.
 echo Project: %PROJECT_ROOT%

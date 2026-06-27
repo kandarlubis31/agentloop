@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================
-#  Freebuff Looping - Worker 1 Launcher
+#  AgentLoop - Worker 1 Launcher
 #  Usage: ./start-worker1.sh
 # ============================================
 
@@ -19,7 +19,7 @@ WT="$PARENT_DIR/${PROJECT_NAME}-w1"
 export HOME="$HOME/.config/manicode-w1"
 
 echo "============================================="
-echo "  Freebuff Looping - WORKER 1"
+echo "  AgentLoop - WORKER 1"
 echo "============================================="
 echo ""
 echo "Project:  $WT"

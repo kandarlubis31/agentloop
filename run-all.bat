@@ -1,6 +1,6 @@
 @echo off
 REM ============================================
-REM  Freebuff Looping - RUN ALL (One-Click!)
+REM  AgentLoop - RUN ALL (One-Click!)
 REM  Opens 3 CMD windows: Orchestrator + 2 Workers
 REM  Usage: run-all.bat (double-click!)
 REM ============================================
@@ -33,7 +33,7 @@ if not exist "%WT1%" (
 )
 
 echo =============================================
-echo   Freebuff Looping - RUN ALL
+echo   AgentLoop - RUN ALL
 echo =============================================
 echo.
 echo   Opening 3 windows:
@@ -54,7 +54,7 @@ echo Starting in 3 seconds...
 timeout /t 3 /nobreak >nul
 
 REM Window 1: Orchestrator (normal config)
-start "ORCHESTRATOR - Freebuff Looping" /D "%PROJECT_ROOT%" cmd /k ^
+start "ORCHESTRATOR - AgentLoop" /D "%PROJECT_ROOT%" cmd /k ^
 "echo ===== ORCHESTRATOR ===== && ^
 echo Config: %%USERPROFILE%%\.config\manicode (normal) && ^
 echo. && ^
@@ -67,7 +67,7 @@ REM Small delay so windows don't stack
 timeout /t 1 /nobreak >nul
 
 REM Window 2: Worker 1 (HOME override)
-start "WORKER 1 - Freebuff Looping" /D "%WT1%" cmd /k ^
+start "WORKER 1 - AgentLoop" /D "%WT1%" cmd /k ^
 "set USERPROFILE=%%USERPROFILE%%\.config\manicode-w1 && ^
 set HOME=%%USERPROFILE%%\.config\manicode-w1 && ^
 echo ===== WORKER 1 ===== && ^
@@ -81,7 +81,7 @@ freebuff"
 timeout /t 1 /nobreak >nul
 
 REM Window 3: Worker 2 (HOME override)
-start "WORKER 2 - Freebuff Looping" /D "%WT2%" cmd /k ^
+start "WORKER 2 - AgentLoop" /D "%WT2%" cmd /k ^
 "set USERPROFILE=%%USERPROFILE%%\.config\manicode-w2 && ^
 set HOME=%%USERPROFILE%%\.config\manicode-w2 && ^
 echo ===== WORKER 2 ===== && ^

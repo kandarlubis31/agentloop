@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================
-#  Freebuff Looping - CLEANUP
+#  AgentLoop - CLEANUP
 #  Remove worktrees, config dirs, branches
 #  Usage: ./cleanup.sh
 # ============================================
@@ -10,7 +10,7 @@ PROJECT_NAME="$(basename "$PROJECT_ROOT")"
 PARENT_DIR="$(dirname "$PROJECT_ROOT")"
 
 echo "============================================="
-echo "  Freebuff Looping - CLEANUP"
+echo "  AgentLoop - CLEANUP"
 echo "============================================="
 echo ""
 echo "This will remove:"

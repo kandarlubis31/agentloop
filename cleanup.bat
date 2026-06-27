@@ -1,6 +1,6 @@
 @echo off
 REM ============================================
-REM  Freebuff Looping - CLEANUP (Windows)
+REM  AgentLoop - CLEANUP (Windows)
 REM  Remove worktrees, config dirs, branches
 REM ============================================
 
@@ -13,7 +13,7 @@ for %%I in ("%PROJECT_ROOT%") do set "PROJECT_NAME=%%~nI"
 for %%I in ("%PROJECT_ROOT%") do set "PARENT_DIR=%%~dpI"
 
 echo =============================================
-echo   Freebuff Looping - CLEANUP
+echo   AgentLoop - CLEANUP
 echo =============================================
 echo.
 echo This will remove:

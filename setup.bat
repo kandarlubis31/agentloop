@@ -1,6 +1,6 @@
 @echo off
 REM ============================================
-REM  Freebuff Looping - SETUP (Windows)
+REM  AgentLoop - SETUP (Windows)
 REM  Run once to configure worktrees & workers
 REM ============================================
 
@@ -25,7 +25,7 @@ for %%I in ("%PROJECT_ROOT%") do set "PROJECT_NAME=%%~nI"
 for %%I in ("%PROJECT_ROOT%") do set "PARENT_DIR=%%~dpI"
 
 echo =============================================
-echo   Freebuff Looping - SETUP
+echo   AgentLoop - SETUP
 echo =============================================
 echo.
 echo Project: %PROJECT_NAME%
@@ -51,9 +51,9 @@ if errorlevel 1 (
     git add -A 2>nul
     git diff --cached --exit-code >nul 2>&1
     if errorlevel 1 (
-        git commit -m "Initial commit (freebuff-looping setup)"
+        git commit -m "Initial commit (agentloop setup)"
     ) else (
-        git commit --allow-empty -m "Initial commit (freebuff-looping setup)"
+        git commit --allow-empty -m "Initial commit (agentloop setup)"
     )
 ) else (
     echo [2/5] Git commit exists - skipping.

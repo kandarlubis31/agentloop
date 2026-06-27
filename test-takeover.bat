@@ -1,6 +1,6 @@
 @echo off
 REM ============================================
-REM  Freebuff Looping - Takeover Test (Windows)
+REM  AgentLoop - Takeover Test (Windows)
 REM  Double-click to verify takeover bypass
 REM ============================================
 
@@ -15,7 +15,7 @@ for %%I in ("%BASE%") do set "PARENT_DIR=%%~dpI"
 set "CONFIG_W1=%USERPROFILE%\.config\manicode-w1"
 
 echo =============================================
-echo   Freebuff Looping - HOME Override Test
+echo   AgentLoop - HOME Override Test
 echo =============================================
 echo.
 

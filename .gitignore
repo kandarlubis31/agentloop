@@ -1,4 +1,4 @@
-# Freebuff Looping - runtime files (jangan commit)
+# AgentLoop - runtime files (jangan commit)
 queue/*.json
 in-progress/*.json
 results/*.json

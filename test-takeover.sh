@@ -3,7 +3,7 @@
 # Jalanin di Git Bash / bash
 
 echo "============================================="
-echo "  Freebuff Looping - HOME Override Test"
+echo "  AgentLoop - HOME Override Test"
 echo "============================================="
 echo ""
 

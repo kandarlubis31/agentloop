@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔁 Freebuff Looping System
+# 🔁 AgentLoop
 
 **Break Freebuff's single-session limit.** Run multiple Freebuff/Codebuff sessions in parallel on the same project — with atomic task delegation, Git worktrees, and zero takeover.
 
@@ -48,7 +48,7 @@ cp .gitignore .gitattributes YOUR_PROJECT/
 
 ```bash
 # Clone to a temp location, then copy to your project
-git clone https://github.com/YOUR_USER/freebuff-looping /tmp/fl
+git clone https://github.com/YOUR_USER/agentloop /tmp/fl
 cp -r /tmp/fl/{queue,results,in-progress,*.json,*.md,*.sh,*.bat,.gitignore,.gitattributes} YOUR_PROJECT/
 rm -rf /tmp/fl
 ```

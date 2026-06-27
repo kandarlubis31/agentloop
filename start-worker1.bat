@@ -1,6 +1,6 @@
 @echo off
 REM ============================================
-REM  Freebuff Looping - Worker 1 Launcher
+REM  AgentLoop - Worker 1 Launcher
 REM  Double-click to start worker 1 session
 REM ============================================
 
@@ -30,7 +30,7 @@ set "USERPROFILE=%USERPROFILE%\.config\manicode-w1"
 set "HOME=%USERPROFILE%\.config\manicode-w1"
 
 echo =============================================
-echo   Freebuff Looping - WORKER 1
+echo   AgentLoop - WORKER 1
 echo =============================================
 echo.
 echo Project:  %WORKTREE_DIR%

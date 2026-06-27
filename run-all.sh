@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================
-#  Freebuff Looping - RUN ALL (One-Click!)
+#  AgentLoop - RUN ALL (One-Click!)
 #  Spawns 3 tmux panes: Orchestrator + 2 Workers
 #  Usage: ./run-all.sh
 #  Requires: tmux
@@ -43,7 +43,7 @@ fi
 tmux kill-session -t "$SESSION" 2>/dev/null
 
 echo "============================================="
-echo "  🚀 Freebuff Looping — RUN ALL"
+echo "  🚀 AgentLoop — RUN ALL"
 echo "============================================="
 echo ""
 echo "  Spawning 3-pane tmux session:"
@@ -62,7 +62,7 @@ sleep 2
 tmux new-session -d -s "$SESSION" -n loop -c "$PROJECT_ROOT"
 tmux send-keys -t "$SESSION:loop.0" "clear" Enter
 tmux send-keys -t "$SESSION:loop.0" "echo '┌─────────────────────────────────────────┐'" Enter
-tmux send-keys -t "$SESSION:loop.0" "echo '│  🔁 Freebuff Looping — ALL SYSTEMS GO! │'" Enter
+tmux send-keys -t "$SESSION:loop.0" "echo '│  🔁 AgentLoop — ALL SYSTEMS GO! │'" Enter
 tmux send-keys -t "$SESSION:loop.0" "echo '├─────────────────────────────────────────┤'" Enter
 tmux send-keys -t "$SESSION:loop.0" "echo '│ ORCHESTRATOR (top-left)                │'" Enter
 tmux send-keys -t "$SESSION:loop.0" "echo '│   → copy-paste orchestrator-prompt.md  │'" Enter

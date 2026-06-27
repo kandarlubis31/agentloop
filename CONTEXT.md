@@ -1,4 +1,4 @@
-# 🔁 Freebuff Looping System — Internals
+# 🔁 AgentLoop — Internals
 
 Dokumentasi teknis internal sistem. Untuk cara pakai, lihat **README.md**.
 

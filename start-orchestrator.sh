@@ -1,13 +1,13 @@
 #!/bin/bash
 # ============================================
-#  Freebuff Looping - Orchestrator Launcher
+#  AgentLoop - Orchestrator Launcher
 #  Usage: ./start-orchestrator.sh
 # ============================================
 
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 echo "============================================="
-echo "  Freebuff Looping - ORCHESTRATOR"
+echo "  AgentLoop - ORCHESTRATOR"
 echo "============================================="
 echo ""
 echo "Project: $PROJECT_ROOT"

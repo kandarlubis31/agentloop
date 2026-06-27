@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================
-#  Freebuff Looping - SETUP (Linux/Mac/Bash)
+#  AgentLoop - SETUP (Linux/Mac/Bash)
 #  Run once: ./setup.sh
 # ============================================
 
@@ -15,7 +15,7 @@ PROJECT_NAME="$(basename "$PROJECT_ROOT")"
 PARENT_DIR="$(dirname "$PROJECT_ROOT")"
 
 echo "============================================="
-echo "  Freebuff Looping - SETUP"
+echo "  AgentLoop - SETUP"
 echo "============================================="
 echo ""
 echo "Project: $PROJECT_NAME"
@@ -40,9 +40,9 @@ if ! git rev-parse HEAD >/dev/null 2>&1; then
     git add -A
     if git diff --cached --quiet 2>/dev/null; then
         # Allow empty commit for fresh repo
-        git commit --allow-empty -m "Initial commit (freebuff-looping setup)"
+        git commit --allow-empty -m "Initial commit (agentloop setup)"
     else
-        git commit -m "Initial commit (freebuff-looping setup)"
+        git commit -m "Initial commit (agentloop setup)"
     fi
 else
     echo "[2/5] Git commit exists — skipping."

@@ -1,4 +1,4 @@
-# 🎬 Freebuff Looping — Visual Demo
+# 🎬 AgentLoop — Visual Demo
 
 Panduan visual step-by-step. Liat apa yang terjadi di tiap langkah.
 
@@ -73,7 +73,7 @@ Panduan visual step-by-step. Liat apa yang terjadi di tiap langkah.
 
 ```
 ┌─────────────────────────────────────────┐
-│  Freebuff Looping - SETUP               │
+│  AgentLoop - SETUP               │
 │=========================================│
 │ Project: my-project                     │
 │                                         │
@@ -182,7 +182,7 @@ Orchestrator: "Cek results/ dan merge"
 
 ```
 ┌─────────────────────────────────────────┐
-│  Freebuff Looping - CLEANUP             │
+│  AgentLoop - CLEANUP             │
 │=========================================│
 │ Remove worktrees, branches, config dirs │
 │                                         │
