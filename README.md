@@ -20,7 +20,15 @@ Worker 2      →  HOME: ~/.config/manicode-w2/      (override)
 
 3 config dirs = 3 independent `instance-owner.json` = no takeover! 🎉
 
----
+## ⚡ One-Click (Easiest)
+
+```bash
+./run-all.sh        # Linux/Mac (tmux — 3 panes in 1 window)
+run-all.bat         # Windows (3 CMD windows auto-launched)
+```
+
+> 💡 **Double-click `run-all.bat`** → 3 terminals launch with correct configs automatically!
+> See **[DEMO.md](DEMO.md)** for full visual walkthrough.
 
 ## 📦 Quick Start
 
@@ -169,16 +177,47 @@ Workers use **atomic file move** to claim tasks:
 
 ---
 
-## 🎯 Use With Any AI Agent
+## 🎯 Use With Other AI Agents
 
-This system is **agent-agnostic**! The JSON queue works with any agent that can read/write files:
+This system is **agent-agnostic**! The core mechanism is dead simple: JSON files in a folder. ANY agent that can `readFile` / `writeFile` can participate.
 
-| Agent | How |
-|-------|-----|
-| **Freebuff / Codebuff** | Native support |
-| **Claude Code** | Copy orchestrator prompt → Claude plans → another Claude executes |
-| **Cursor / Copilot** | Use queue JSON as task context |
-| **Any CLI agent** | `HOME=... agent-cli`, feed `worker-prompt.md` |
+### The Universal Pattern
+
+```
+┌──────────────────────────────────────────────┐
+│              SHARED PROJECT (Git)             │
+│                                              │
+│  queue/         ← ONE agent writes tasks     │
+│  in-progress/   ← Atomic claim (rename file) │
+│  results/       ← Agents write outputs       │
+│                                              │
+│  Any agent can be orchestrator OR worker!    │
+└──────────────────────────────────────────────┘
+```
+
+### How to use with specific agents:
+
+| Agent | As Orchestrator | As Worker |
+|-------|----------------|-----------|
+| **Freebuff / Codebuff** | `freebuff` → copy-paste `orchestrator-prompt.md` | `HOME=~/.config/manicode-w1 freebuff` → copy-paste `worker-prompt.md` |
+| **Claude Code** | `claude` → "Read orchestrator-prompt.md and follow it" | `claude` → "Read worker-prompt.md and follow it" (Claude doesn't need HOME override) |
+| **Cursor / Windsurf** | Open chat → paste orchestrator prompt | Open chat → paste worker prompt → point to queue/ |
+| **Aider** | `aider` → "You are the orchestrator..." | `aider` → "You are a worker. Scan queue/..." |
+| **Copilot Chat** | Paste orchestrator prompt | Paste worker prompt with project context |
+| **Any CLI agent** | `AGENT_CLI` → feed orchestrator prompt | `AGENT_CLI` → feed worker prompt |
+
+### Key insight: HOME override is Freebuff-specific
+
+Other agents (Claude Code, Cursor, Aider) don't have Freebuff's takeover problem — they allow multiple sessions natively. **But the queue system works universally** — just skip the HOME override and use the JSON files for orchestration.
+
+For non-Freebuff agents, simplify to:
+```bash
+# Orchestrator
+cd project && your-agent
+
+# Worker (no HOME override needed!)
+cd project-w1 && your-agent
+```
 
 ---
 
@@ -213,23 +252,24 @@ Create `start-worker3.sh` / `start-worker3.bat` following the same template. Orc
 
 ```
 your-project/
-├── queue/                     Task files (pending)
-├── in-progress/               Tasks being worked on  
-├── results/                   Worker outputs
-├── README.md                  This file
-├── CONTEXT.md                 System internals
-├── orchestrator-prompt.md     Copy-paste for orchestrator
-├── worker-prompt.md           Copy-paste for workers
-├── task-template.json         Task JSON template
-├── result-template.json       Result JSON template
-├── setup.sh / setup.bat       One-time setup
-├── cleanup.sh / cleanup.bat   Tear down everything
-├── start-orchestrator.*       Launch orchestrator
-├── start-worker1.*            Launch worker 1
-├── start-worker2.*            Launch worker 2
-├── test-takeover.sh / .bat    Verify bypass works
+├── queue/                     ← Task files (pending)
+├── in-progress/               ← Tasks actively being worked
+├── results/                   ← Completed task outputs
+├── README.md                  ← You are here
+├── DEMO.md                    ← Visual walkthrough with screenshots
+├── CONTEXT.md                 ← System internals (for AI agents)
+├── orchestrator-prompt.md     ← Copy-paste for orchestrator
+├── worker-prompt.md           ← Copy-paste for workers
+├── task-template.json         ← Task JSON template
+├── result-template.json       ← Result JSON template
+├── setup.sh / setup.bat       ← One-time setup
+├── cleanup.sh / cleanup.bat   ← Tear down everything
+├── run-all.sh / run-all.bat   ← ONE-CLICK launch all 3! ⚡
+├── start-orchestrator.*       ← Individual launcher
+├── start-worker1.* / 2.*      ← Individual launchers
+├── test-takeover.*            ← Verify bypass works
 ├── .gitignore / .gitattributes
-└── LICENSE                    MIT
+└── LICENSE                    ← MIT
 ```
 
 ---
