@@ -58,6 +58,14 @@ Setup will: init git (if needed) → create 2 worktrees → config directories �
 
 ### 3. Start sessions
 
+**Recommended — One-click:**
+```bash
+./run-all.sh        # Linux/Mac (tmux 3-pane)
+run-all.bat         # Windows (3 CMD windows)
+```
+
+**Manual (individual launchers):**
+
 | Terminal | Command | Role |
 |----------|---------|------|
 | **1** | `./start-orchestrator.sh` or `.bat` | Planning & monitoring |

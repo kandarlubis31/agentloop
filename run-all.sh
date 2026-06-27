@@ -96,8 +96,8 @@ tmux send-keys -t "$SESSION:loop.0" "clear" Enter
 tmux send-keys -t "$SESSION:loop.0" "echo '===== ORCHESTRATOR =====' && echo 'Config: ~/.config/manicode (normal)' && echo 'Run: copy-paste orchestrator-prompt.md' && echo ''" Enter
 tmux send-keys -t "$SESSION:loop.0" "freebuff" Enter
 
-# Resize panes for better proportions
-tmux resize-pane -t "$SESSION:loop.0" -y 20
+# Give orchestrator more horizontal space (wider instructions pane)
+tmux resize-pane -t "$SESSION:loop.0" -x 55 2>/dev/null || true
 
 # Attach to session
 tmux attach-session -t "$SESSION"

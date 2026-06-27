@@ -49,11 +49,11 @@ Panduan visual step-by-step. Liat apa yang terjadi di tiap langkah.
 │  (session baru)        │  (session baru)        │
 │                        │                        │
 │  "Gua mau bikin..."    │  "Lo worker. Scan..."  │
-├────────────────────────┼────────────────────────┤
-│  INSTRUCTIONS          │  WORKER 2              │
-│                        │  cd ~/project-w2       │
-│  Ctrl+B + Arrow keys   │  Config: manicode-w2   │
-│  buat pindah pane      │                        │
+│                        ├────────────────────────┤
+│                        │  WORKER 2              │
+│  Ctrl+B + Arrow keys   │  cd ~/project-w2       │
+│  buat pindah pane      │  Config: manicode-w2   │
+│                        │                        │
 │                        │  > freebuff            │
 │                        │  (session baru)        │
 │                        │                        │
