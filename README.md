@@ -23,9 +23,11 @@ Worker 2      →  HOME: ~/.config/manicode-w2/      (override)
 ## 📦 Quick Start (30 seconds)
 
 ```bash
-# 1. Clone this repo (or copy files to your project)
-git clone https://github.com/YOUR_USER/freebuff-looping
-cd freebuff-looping
+# 1. Copy file-file ini ke project lo:
+#    queue/ results/ task-template.json result-template.json
+#    orchestrator-prompt.md worker-prompt.md
+#    setup.sh setup.bat start-*.sh start-*.bat
+#    CONTEXT.md USAGE.md
 
 # 2. Run setup (creates worktrees + worker configs)
 ./setup.sh          # Linux/Mac/Git Bash
@@ -37,6 +39,9 @@ setup.bat           # Windows CMD
 ./start-worker1.sh         # Terminal 2 — executes tasks
 ./start-worker2.sh         # Terminal 3 — executes tasks
 ```
+
+> 💡 **Pake di project manapun**: Copy file-file di atas ke root project lo, lalu run `./setup.sh`.
+> Gak perlu clone repo terpisah — sistem ini didesain sebagai **drop-in tool**.
 
 ## 🧠 How It Works
 

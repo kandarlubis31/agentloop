@@ -6,6 +6,10 @@
 
 set -e
 
+# Pre-flight checks
+command -v git >/dev/null 2>&1 || { echo "[ERROR] git not installed!"; exit 1; }
+command -v freebuff >/dev/null 2>&1 || command -v codebuff >/dev/null 2>&1 || { echo "[ERROR] freebuff/codebuff not installed!"; exit 1; }
+
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_NAME="$(basename "$PROJECT_ROOT")"
 PARENT_DIR="$(dirname "$PROJECT_ROOT")"
@@ -34,7 +38,12 @@ cd "$PROJECT_ROOT"
 if ! git rev-parse HEAD >/dev/null 2>&1; then
     echo "[2/5] Creating initial commit..."
     git add -A
-    git commit -m "Initial commit (freebuff-looping setup)"
+    if git diff --cached --quiet 2>/dev/null; then
+        # Allow empty commit for fresh repo
+        git commit --allow-empty -m "Initial commit (freebuff-looping setup)"
+    else
+        git commit -m "Initial commit (freebuff-looping setup)"
+    fi
 else
     echo "[2/5] Git commit exists — skipping."
 fi
@@ -45,29 +54,32 @@ WT2="$PARENT_DIR/${PROJECT_NAME}-w2"
 
 echo "[3/5] Creating worktrees..."
 
-if ! git worktree list | grep -q "${PROJECT_NAME}-w1"; then
+if ! git worktree list 2>/dev/null | grep -q "${PROJECT_NAME}-w1"; then
     echo "  - Creating worker-1 worktree..."
     git worktree add -b worker-1 "$WT1" main
 else
     echo "  - Worktree worker-1 already exists."
 fi
 
-if ! git worktree list | grep -q "${PROJECT_NAME}-w2"; then
+if ! git worktree list 2>/dev/null | grep -q "${PROJECT_NAME}-w2"; then
     echo "  - Creating worker-2 worktree..."
     git worktree add -b worker-2 "$WT2" main
 else
     echo "  - Worktree worker-2 already exists."
 fi
 
-# Step 4: Create config directories
+# Step 4: Create config directories (NESTED structure!)
 echo "[4/5] Setting up worker config directories..."
 
-mkdir -p "$HOME/.config/manicode-w1"
-mkdir -p "$HOME/.config/manicode-w2"
+# Worker 1: HOME=~/.config/manicode-w1 → freebuff cari $HOME/.config/manicode/
+mkdir -p "$HOME/.config/manicode-w1/.config/manicode"
+
+# Worker 2: HOME=~/.config/manicode-w2 → freebuff cari $HOME/.config/manicode/
+mkdir -p "$HOME/.config/manicode-w2/.config/manicode"
 
 if [ -f "$HOME/.config/manicode/credentials.json" ]; then
-    cp "$HOME/.config/manicode/credentials.json" "$HOME/.config/manicode-w1/"
-    cp "$HOME/.config/manicode/credentials.json" "$HOME/.config/manicode-w2/"
+    cp "$HOME/.config/manicode/credentials.json" "$HOME/.config/manicode-w1/.config/manicode/"
+    cp "$HOME/.config/manicode/credentials.json" "$HOME/.config/manicode-w2/.config/manicode/"
     echo "  - Credentials copied to worker configs."
 else
     echo "  - WARNING: No credentials found. You'll need to login in each worker."
