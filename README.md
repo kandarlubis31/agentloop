@@ -4,18 +4,18 @@
 
 **Break Freebuff's single-session limit.** Run multiple Freebuff/Codebuff sessions in parallel on the same project — with atomic task delegation, Git worktrees, and zero takeover.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform: Windows | Linux | macOS](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)]()
-[![Agents: Freebuff | Claude | Cursor | Aider](https://img.shields.io/badge/Agents-Freebuff%20%7C%20Claude%20%7C%20Cursor%20%7C%20Aider-orange)]()
-[![Setup: 30s](https://img.shields.io/badge/Setup-30%20seconds-green)]()
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Platform: Windows | Linux | macOS](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
+![Agents: Freebuff | Claude | Cursor | Aider](https://img.shields.io/badge/Agents-Freebuff%20%7C%20Claude%20%7C%20Cursor%20%7C%20Aider-orange)
+![Setup: 30s](https://img.shields.io/badge/Setup-30%20seconds-green)
 
 ---
 
-**[Quick Start](#-quick-start)** •
-**[How It Works](#-how-it-works)** •
-**[Other Agents](#-use-with-other-ai-agents)** •
-**[Demo](#-visual-demo)** •
-**[Troubleshooting](#-troubleshooting)**
+**[Quick Start](#quick-start)** •
+**[How It Works](#how-it-works)** •
+**[Other Agents](#use-with-other-ai-agents)** •
+**[Demo](#visual-demo)** •
+**[Troubleshooting](#troubleshooting)**
 
 </div>
 
@@ -40,6 +40,7 @@ Freebuff (and Codebuff free tier) limits you to **1 active session**. Open a sec
 cp -r queue/ results/ in-progress/ YOUR_PROJECT/
 cp *.json *.md *.sh *.bat YOUR_PROJECT/
 cp .gitignore .gitattributes YOUR_PROJECT/
+# ⚠️  If YOUR_PROJECT already has README.md/.sh/.bat, add -n to skip: cp -n ...
 ```
 
 <details>
@@ -56,6 +57,7 @@ rm -rf /tmp/fl
 ### 2. Setup (once, ~10 seconds)
 
 ```bash
+chmod +x *.sh     # IMPORTANT: make scripts executable after download
 cd YOUR_PROJECT/
 ./setup.sh          # Linux / macOS / Git Bash
 # OR
