@@ -1,0 +1,11 @@
+{
+  "task_id": "task-001",
+  "worker": "worker-1",
+  "status": "completed",
+  "summary": "Apa yang udah dikerjain",
+  "files_created": ["path/to/new/file.ts"],
+  "files_modified": ["path/to/modified/file.ts"],
+  "errors": [],
+  "notes": "Catalan tambahan buat orchestrator",
+  "completed_at": ""
+}

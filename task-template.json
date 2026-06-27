@@ -1,0 +1,12 @@
+{
+  "id": "task-001",
+  "type": "code-generation",
+  "assigned_to": null,
+  "prompt": "DESKRIPSI TASK YANG KOMPLIT. Sertakan: apa yang harus dibuat, path file output, library/framework yang dipake, coding style",
+  "context_files": ["path/to/relevant/file1.ts", "path/to/relevant/file2.ts"],
+  "output_files": ["path/to/output/file.ts"],
+  "depends_on": [],
+  "status": "pending",
+  "created_at": "",
+  "completed_at": null
+}
