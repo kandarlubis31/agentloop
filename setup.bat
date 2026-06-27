@@ -6,6 +6,18 @@ REM ============================================
 
 setlocal enabledelayedexpansion
 
+REM Prerequisite checks
+where git >nul 2>&1
+if errorlevel 1 (
+    echo [ERROR] git not found in PATH! Install Git first.
+    pause
+    exit /b 1
+)
+where freebuff >nul 2>&1
+if errorlevel 1 (
+    echo [WARNING] freebuff not found in PATH. Install: npm install -g freebuff
+)
+
 set "PROJECT_ROOT=%~dp0"
 set "PROJECT_ROOT=%PROJECT_ROOT:~0,-1%"
 
@@ -37,7 +49,7 @@ git rev-parse HEAD >nul 2>&1
 if errorlevel 1 (
     echo [2/5] Creating initial commit...
     git add -A 2>nul
-    git diff --cached --quiet 2>nul
+    git diff --cached --exit-code >nul 2>&1
     if errorlevel 1 (
         git commit -m "Initial commit (freebuff-looping setup)"
     ) else (
@@ -53,18 +65,23 @@ set "WT2=%PARENT_DIR%%PROJECT_NAME%-w2"
 
 echo [3/5] Creating worktrees...
 
-git worktree list 2>nul | findstr /C:"-w1" >nul 2>&1
+REM Use exact project name matching (not just "-w1" suffix)
+git worktree list 2>nul | findstr /C:"%PROJECT_NAME%-w1" >nul 2>&1
 if errorlevel 1 (
     echo   - Creating worker-1 worktree...
-    git worktree add -b worker-1 "%WT1%" main
+    git worktree add -b worker-1 "%WT1%" main 2>nul || (
+        echo   - WARNING: Could not create worker-1. Branch may already exist.
+    )
 ) else (
     echo   - Worktree worker-1 already exists.
 )
 
-git worktree list 2>nul | findstr /C:"-w2" >nul 2>&1
+git worktree list 2>nul | findstr /C:"%PROJECT_NAME%-w2" >nul 2>&1
 if errorlevel 1 (
     echo   - Creating worker-2 worktree...
-    git worktree add -b worker-2 "%WT2%" main
+    git worktree add -b worker-2 "%WT2%" main 2>nul || (
+        echo   - WARNING: Could not create worker-2. Branch may already exist.
+    )
 ) else (
     echo   - Worktree worker-2 already exists.
 )
@@ -72,9 +89,9 @@ if errorlevel 1 (
 REM Step 4: Create config directories (NESTED structure!)
 echo [4/5] Setting up worker config directories...
 
-REM Worker 1: HOME=%%USERPROFILE%%\.config\manicode-w1
-REM   → freebuff cari %%HOME%%\.config\manicode\
-REM   → = %%USERPROFILE%%\.config\manicode-w1\.config\manicode\
+REM Worker: HOME=%%USERPROFILE%%\.config\manicode-w1
+REM   -> freebuff cari %%HOME%%\.config\manicode\
+REM   -> = %%USERPROFILE%%\.config\manicode-w1\.config\manicode\
 if not exist "%USERPROFILE%\.config\manicode-w1\.config\manicode" (
     mkdir "%USERPROFILE%\.config\manicode-w1\.config\manicode"
 )
@@ -100,6 +117,8 @@ echo.
 echo   Orchestrator:  start-orchestrator.bat
 echo   Worker 1:      start-worker1.bat
 echo   Worker 2:      start-worker2.bat
+echo.
+echo   Cleanup:       cleanup.bat
 echo =============================================
 echo.
 

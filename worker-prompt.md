@@ -2,26 +2,38 @@
 
 Copy-paste ini ke Codebuff worker session (terminal dengan HOME OVERRIDE):
 
-**Cara start worker:**
+**PENTING — Cara start worker (HOME override = wajib!):**
 ```bash
-# Worker 1
-cd "C:/Users/KandarLubis/Desktop/Project/dan lain lain/freebuffdual-w1"
+# Worker 1 (Linux/Mac/Git Bash)
+cd "your-project-w1"
 HOME="$HOME/.config/manicode-w1" freebuff
 
-# Worker 2
-cd "C:/Users/KandarLubis/Desktop/Project/dan lain lain/freebuffdual-w2"
-HOME="$HOME/.config/manicode-w2" freebuff
+# Worker 1 (Windows CMD)
+cd /d "your-project-w1"
+set HOME=%USERPROFILE%\.config\manicode-w1
+set USERPROFILE=%USERPROFILE%\.config\manicode-w1
+freebuff
 ```
+> ⚠️ **Tanpa HOME override → TAKEOVER!** Freebuff cek `$HOME/.config/manicode/freebuff-instance-owner.json`. HOME override bikin worker punya instance-owner sendiri.
 
 ---
 
 Lo adalah **Worker** dalam sistem looping Freebuff. Tugas lo:
 
 ## 1. SCAN QUEUE
-Cek folder `queue/`. Cari `.json` dengan `"status": "pending"` yang belum ada result di `results/`.
+Cek folder `queue/`. Cari file `.json` dengan `"status": "pending"` yang belum ada result-nya di `results/`.
 
-## 2. AMBIL 1 TASK
-Pilih 1 task. Ubah `"status"` jadi `"in-progress"`, `"assigned_to"` jadi `"worker-1"` (atau worker-2). Pindahin file ke `in-progress/`.
+## 2. AMBIL 1 TASK (ATOMIC — biar gak tabrakan!)
+**KRITIKAL**: Lo harus **PINDAHIN** (move/rename) file task dari `queue/` ke `in-progress/` SEBELUM baca isinya. Ini atomic operation — kalau 2 worker mau ambil task yang sama, cuma 1 yang berhasil.
+
+```bash
+# Pindahin dulu (atomic!)
+mv queue/task-001.json in-progress/task-001.json
+
+# Kalau mv gagal (file udah diambil worker lain) → lo ambil task LAIN
+```
+
+Setelah berhasil pindahin, baru baca isinya. Update `"status"` jadi `"in-progress"`, `"assigned_to"` jadi `"worker-1"` (atau worker-2).
 
 ## 3. EKSEKUSI
 Baca `"prompt"` di task JSON. Eksekusi sesuai instruksi.
@@ -54,11 +66,12 @@ git commit -m "worker-1: [task-id] - summary"
 ```
 
 ## 6. STOP
-1 task selesai → BERHENTI. Bilang:
+1 task selesai → **BERHENTI**. Bilang:
 > "Task [id] selesai. Result di results/."
 
 ## PENTING:
 - **1 sesi = 1 task**.
+- **Atomic move!** Pindahin task ke `in-progress/` sebelum baca isinya biar gak tabrakan.
 - **Commit hasil lo.** Tanpa commit, orchestrator gak bisa merge.
 - **Jangan tanya balik.** Decide sendiri.
 - Kalau task butuh file belum ada (dependency) → skip, tulis di errors.
