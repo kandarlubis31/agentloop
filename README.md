@@ -67,7 +67,6 @@ run-all.sh / .bat      buka 3 sesi sekaligus (orchestrator + 2 worker)
 start-*.sh / .bat      buka satu sesi tertentu saja
 test-takeover.sh / .bat  verifikasi bahwa takeover memang tidak terjadi
 cleanup.sh / .bat       hapus worktree dan config sementara
-CONTEXT.md             catatan teknis internal
 DEMO.md                panduan visual langkah demi langkah
 ```
 
@@ -120,7 +119,7 @@ alih sesi pertama.
 ## Catatan
 
 - Judul README ini dulu `freebuffdual` sementara nama repository-nya `agentloop`.
-  Dokumentasi internal (`CONTEXT.md`, `DEMO.md`) memakai nama **AgentLoop**.
+  Dokumentasi internal (`DEMO.md`) memakai nama **AgentLoop**.
 - Prompt orchestrator dan worker sengaja tidak dijalankan otomatis: keduanya harus
   ditempel manual ke sesi masing-masing.
 
